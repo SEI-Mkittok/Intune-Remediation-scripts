@@ -1,6 +1,6 @@
 param(
 [switch]$GridView,		
-[switch]$PST
+[switch]$CSV
 )
 
 # Prompt credentials
@@ -68,4 +68,5 @@ ForEach($Script in $Get_Scripts)
 }	
 
 If($GridView){$CVE_Check_Array | Out-GridView}
-If($PST){$CVE_Check_Array | Export-Csv -Path "$env:temp\CVE-2025-54100_Script_Report.csv" -NoTypeInformation -Encoding UTF8;invoke-item $env:temp}
+If($CSV){$CVE_Check_Array | Export-Csv -Path "$env:temp\CVE-2025-54100_Script_Report.csv" -NoTypeInformation -Encoding UTF8;invoke-item $env:temp}
+
