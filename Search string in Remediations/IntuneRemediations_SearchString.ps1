@@ -19,20 +19,7 @@ param(
 # $Script:clientId = ""	
 # $Script:Thumbprint = ""
 # Connect-MgGraph -Certificate $ClientCertificate -TenantId $TenantId -ClientId $ClientId  | out-null		
-	
-$Script:tenantID = "081c4a9c-ea86-468c-9b4c-30d99d63df76"
-$Script:clientId = "007016e7-67eb-40f1-b415-d247e3fcc80c"	
-$Script:Thumbprint = "25f91bf7ccc28cde9a805b16e6ecf2897f7fc753"
-$ClientCertificate = Get-Item "Cert:\LocalMachine\My\$($thumbPrint)"	
-Connect-MgGraph -Certificate $ClientCertificate -TenantId $TenantId -ClientId $ClientId | out-null		
-			
-	
-If($toto -eq "")
-{
-	write-warning "Please type a string to search using -String parameter"
-	EXIT
-}
-	
+
 $Remediations_URL = "https://graph.microsoft.com/beta/deviceManagement/deviceHealthScripts"
 $Get_Scripts = (Invoke-MgGraphRequest -Uri $Remediations_URL  -Method GET).value	
 $Data_Array = @()
@@ -95,3 +82,4 @@ ForEach($Script in $Get_Scripts)
 $Data_With_String = $Data_Array | where {$_."With string" -eq "Yes"}
 If($GridView){$Data_With_String | Out-GridView}
 If($PST){$Data_With_String | Export-Csv -Path "$env:temp\CVE-2025-54100_Script_Report.csv" -NoTypeInformation -Encoding UTF8;invoke-item $env:temp}
+
